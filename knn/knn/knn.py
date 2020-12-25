@@ -1,7 +1,23 @@
-
 from numpy import *
 import operator
 
+def file2matrix(filename):
+    fr=open(filename)
+    arrayOfLines=fr.readline()
+    #得到文件行数
+    numberOfLines=len(arrayOfLines)
+    #创建返回的Numpy矩阵
+    returnMat=zeros((numberOfLines,3))
+    classLabelVector=[]
+    index=0
+    for line in arrayOfLines:
+        #去除首尾的空格键
+        line=line.strip()
+        listFromLine=line.split('\t')
+        returnMat[index,:]=listFromLine[0:3]
+        classLabelVector.append(int(listFromLine[-1]))
+        index+=1
+    return returnMat,classLabelVector
 
 def createDataSet():
     group=array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
