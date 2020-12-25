@@ -1,9 +1,11 @@
 from numpy import *
 import operator
+import matplotlib
+import matplotlib.pyplot as plt
 
 def file2matrix(filename):
     fr=open(filename)
-    arrayOfLines=fr.readline()
+    arrayOfLines=fr.readlines()
     #得到文件行数
     numberOfLines=len(arrayOfLines)
     #创建返回的Numpy矩阵
@@ -12,7 +14,7 @@ def file2matrix(filename):
     index=0
     for line in arrayOfLines:
         #去除首尾的空格键
-        line=line.strip()
+        line=line.strip('\n')
         listFromLine=line.split('\t')
         returnMat[index,:]=listFromLine[0:3]
         classLabelVector.append(int(listFromLine[-1]))
@@ -43,6 +45,9 @@ def classify0(inX,dataSet,labels,k):
     return sortedClassCount[0][0]
 
 
-group,labels=createDataSet()
-ans=classify0([0.2,0.2],group,labels,3)
-print(ans)
+datingDataMat,labels=file2matrix('datingTestSet2.txt')
+fig=plt.figure()
+ax=fig.add_subplot(111)
+#后面两个参数赋予了颜色
+ax.scatter(datingDataMat[:,1],datingDataMat[:,2],15.0*array(labels),15.0*array(labels))
+plt.show()
