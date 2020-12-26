@@ -3,6 +3,10 @@ import operator
 import matplotlib
 import matplotlib.pyplot as plt
 
+#为避免某一个数据严重影响计算结果，我们需要把所有数据映射到[0,1]或者[-1,1]
+def autoNorm(dataSet):
+    minVals=dataSet.min(0)
+
 def file2matrix(filename):
     fr=open(filename)
     arrayOfLines=fr.readlines()
@@ -36,7 +40,7 @@ def classify0(inX,dataSet,labels,k):
     sqDistances=sqDiffMat.sum(axis=1)
     distances=sqDistances**0.5
     #从小到大排列数组并返回他们的索引数组
-    sortedDistIndicies=distances.argsort();
+    sortedDistIndicies=distances.argsort()
     classCount={}
     for i in range(k):
         voteIlabel=labels[sortedDistIndicies[i]]
@@ -49,5 +53,5 @@ datingDataMat,labels=file2matrix('datingTestSet2.txt')
 fig=plt.figure()
 ax=fig.add_subplot(111)
 #后面两个参数赋予了颜色
-ax.scatter(datingDataMat[:,1],datingDataMat[:,2],15.0*array(labels),15.0*array(labels))
+ax.scatter(datingDataMat[:,0],datingDataMat[:,1],15.0*array(labels),15.0*array(labels))
 plt.show()
