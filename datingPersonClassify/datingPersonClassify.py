@@ -92,5 +92,5 @@ ax=fig.add_subplot(111)
 #后面两个参数赋予了颜色
 ax.scatter(datingDataMat[:,0],datingDataMat[:,1],15.0*array(labels),15.0*array(labels))
 plt.show()"""
-#datingClassTest()
-classifyPerson()
+datingClassTest()
+#classifyPerson()
