@@ -3,7 +3,7 @@ import operator
 import matplotlib
 import matplotlib.pyplot as plt
 
-filePath='trainingData\datingTestSet2.txt'
+filePath='datingPersonClassify/trainingData/datingTestSet2.txt'
 
 def classifyPerson():
     resultList=['not at all','in small does','in large does']
