@@ -3,9 +3,11 @@ import operator
 import matplotlib
 import matplotlib.pyplot as plt
 from os import listdir
+from datingPersonClassify import classify0
 
-folderPath_traing='knn/Data/trainingDigits'
-folderPath_test='knn/Data/testDigits'
+folderPath_traing='Data/trainingDigits'
+folderPath_test='Data/testDigits'
+
 
 def handwritingClassTest():
     hwLabels=[]
@@ -43,24 +45,6 @@ def img2vector(fileName):
         for j in range(32):
             returnVect[0,32*i+j]=lineStr[j]
     return returnVect
-
-#inX:输入向量   dataSet:训练样本集   labels:标签向量   k:表示用于选择最近邻居的数目#
-def classify0(inX,dataSet,labels,k):
-    #训练样本集的行数
-    dataSize=dataSet.shape[0]
-    #将inX在(dataSize,1)维度上重复
-    diffMat=tile(inX,(dataSize,1))-dataSet
-    sqDiffMat=diffMat**2
-    sqDistances=sqDiffMat.sum(axis=1)
-    distances=sqDistances**0.5
-    #从小到大排列数组并返回他们的索引数组
-    sortedDistIndicies=distances.argsort()
-    classCount={}
-    for i in range(k):
-        voteIlabel=labels[sortedDistIndicies[i]]
-        classCount[voteIlabel]=classCount.get(voteIlabel,0)+1
-    sortedClassCount=sorted(classCount.items(),reverse=True)
-    return sortedClassCount[0][0]
 
 
 handwritingClassTest()
