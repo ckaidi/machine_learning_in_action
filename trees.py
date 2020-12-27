@@ -1,11 +1,11 @@
 from math import log
 import operator
 
+dataPath='DATA\Ch02\datingTestSet2.txt'
 
-dataPath='DATA\Ch02\datingTestSet.txt'
-
-#递归构造决策树
+#递归构造决策树,dataSet:数据集   labels:标签列表
 def createTree(dataSet,labels):
+    #数据集所有的类标签
     classList=[example[-1] for example in dataSet]
     #类别完全相同则停止继续划分
     #count() 方法用于统计字符串里某个字符出现的次数
@@ -106,3 +106,6 @@ def calcShannonEnt(dataSet):
     # 熵越高说明混合的数据越多
     return shannonEnt
 
+dataSet,labels=createDataSet()
+myTree=createTree(dataSet,labels)
+print(myTree)
