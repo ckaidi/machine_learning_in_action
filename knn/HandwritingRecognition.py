@@ -4,8 +4,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 from os import listdir
 
-folderPath_traing='HandwritingRecognition/Data/trainingDigits'
-folderPath_test='HandwritingRecognition/Data/testDigits'
+folderPath_traing='knn/Data/trainingDigits'
+folderPath_test='knn/Data/testDigits'
 
 def handwritingClassTest():
     hwLabels=[]
