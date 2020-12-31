@@ -3,7 +3,7 @@ import operator
 import matplotlib
 import matplotlib.pyplot as plt
 
-filePath='DATA\Ch02\datingTestSet2.txt'
+filePath=r'DATA\Ch02\datingTestSet2.txt'
 
 def classifyPerson():
     resultList=['not at all','in small does','in large does']
@@ -92,4 +92,4 @@ ax=fig.add_subplot(111)
 #后面两个参数赋予了颜色
 ax.scatter(datingDataMat[:,0],datingDataMat[:,1],15.0*array(labels),15.0*array(labels))
 plt.show()"""
-#datingClassTest()
+datingClassTest()

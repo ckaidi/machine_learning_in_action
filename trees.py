@@ -1,7 +1,39 @@
+from Utils.fileDialog import fileDialog
 from math import log
 import operator
+import pickle
+from PyQt5.QtWidgets import *
+import Utils
+import sys
 
-dataPath='DATA\Ch02\datingTestSet2.txt'
+
+#使用pickle模块存储决策树
+def storeTree(inputTree,fileName):
+    fw=open(fileName,'wb+')
+    pickle.dump(inputTree,fw)
+    fw.close()
+
+#读取树
+def grabTree(fileName):
+    fr=open(fileName,'rb')
+    return pickle.load(fr)
+
+#使用决策树分类算法
+def classify(inputTree,featLabels,testVec):
+    classLabel='unregonized'
+    #获得输入树的第一个特征
+    firstStr=list(inputTree.keys())[0]
+    #获得第一个特征的分类情况
+    secondDict=inputTree[firstStr]
+    #判断的特征是特征集的第几个特征
+    featIndex=featLabels.index(firstStr)
+    for key in secondDict.keys():
+        if testVec[featIndex]==key:
+            if type[secondDict[key]].__name__=='dict':
+                classLabel=classify(secondDict[key],featLabels,testVec)
+            else:classLabel=secondDict[key]
+        return classLabel
+
 
 #递归构造决策树,dataSet:数据集   labels:标签列表
 def createTree(dataSet,labels):
@@ -108,4 +140,3 @@ def calcShannonEnt(dataSet):
 
 dataSet,labels=createDataSet()
 myTree=createTree(dataSet,labels)
-print(myTree)

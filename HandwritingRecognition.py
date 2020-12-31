@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from os import listdir
 from datingPersonClassify import classify0
 
-folderPath_traing='DATA/Ch02\handWriteRe/trainingDigits'
-folderPath_test='DATA/Ch02/handWriteRe/testDigits'
+folderPath_traing=r'DATA/Ch02\handWriteRe/trainingDigits'
+folderPath_test=r'DATA/Ch02/handWriteRe/testDigits'
 
 
 def handwritingClassTest():
