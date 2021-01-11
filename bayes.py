@@ -16,7 +16,7 @@ def createVocabList(dataSet):
         vocabSet=vocabSet|set(doucument)#创建两个集合的并集
     return list(vocabSet)
 
-
+#
 def setOfWords2Vec(vocabList,inputSet):
     #创建一个其中所含元素都为0的向量
     returnVec=[0]*len(vocabList)
