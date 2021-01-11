@@ -7,6 +7,8 @@ import Utils
 import sys
 
 
+dataPath=r'DATA\Ch03\lenses.txt'
+
 #使用pickle模块存储决策树
 def storeTree(inputTree,fileName):
     fw=open(fileName,'wb+')
@@ -17,6 +19,13 @@ def storeTree(inputTree,fileName):
 def grabTree(fileName):
     fr=open(fileName,'rb')
     return pickle.load(fr)
+
+
+#读取文本文件中的训练数据
+def readDataFromTxt(fileName):
+    fr=open(fileName)
+    lenses=[eachLine.strip().split('\t') for eachLine in fr.readlines()]
+
 
 #使用决策树分类算法
 def classify(inputTree,featLabels,testVec):
