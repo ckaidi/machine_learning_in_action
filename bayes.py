@@ -1,6 +1,8 @@
 from numpy import *
 import re
 import numpy as np
+import feedparser
+import operator
 # 创建实验样本
 
 
@@ -150,5 +152,20 @@ def spamTest():
             errorCount+=1
     print ('the error rate is:',float(errorCount)/len(testSet)*100,'%')
 
+#RSS源分类器及高频词去除函数
+def calcMostFreq(vocabList,fullText):
+    #计算出现的频率
+    freqDict={}
+    for token in vocabList:
+        #count函数用于统计字符串里某个字符出现的字数
+        freqDict[token]=fullText.count(token)
+    sortedFreq=sorted(freqDict.iteritems(),key=operator.itemgetter(1),reverse=True)
+    return sortedFreq[:30]
+
+def localWords(feed1,feed0):
+    docList=[];classList=[];fullText=[]
+    minLen=min(len(feed1['entries']),len(feed0['entries']))
+    for i in range(minLen):
+        wordList=textParse(feed1['entries'])
+
 # main
-spamTest()
