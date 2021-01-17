@@ -48,14 +48,14 @@ def classify0(inX,dataSet,labels,k):
     classDis={}
     classNum={}
     for i in range(len(distances)):
-        classDis[labels[i]]=classDis.get(labels[i],0)+distances[i]
+        classDis[labels[i]]=classDis.get(labels[i],1)+distances[i]
         classNum[labels[i]]=classNum.get(labels[i],1)+1
     for label in classes:
-        classDis[label]=classDis.get(label,0)/classNum.get(label,1)
+        classDis[label]=classDis.get(label,1)/classNum.get(label,1)
     
   
     sortedClassCount=sorted(classDis.items(),key=lambda item:item[1])
-    return sortedClassCount[0:3]
+    return sortedClassCount[0:k]
 #main
 a,b=file2matrix()
 c=createMatrix(a)
@@ -64,5 +64,5 @@ testMat=testVect.split(',')
 dataTest=zeros(12)
 for i in testMat:
     dataTest[int(i)]+=1
-result=classify0(dataTest,numpy.array(c),b,3)
+result=classify0(dataTest,numpy.array(c),b,9)
 print(result)
