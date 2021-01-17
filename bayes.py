@@ -211,7 +211,7 @@ def getTopWords(ny,sf):
     print("----------NY----------")
     for item in sortedNY:
         print(item[0])
-
+    return
 
 
 # main
