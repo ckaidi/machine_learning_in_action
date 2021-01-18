@@ -64,5 +64,5 @@ testMat=testVect.split(',')
 dataTest=zeros(12)
 for i in testMat:
     dataTest[int(i)]+=1
-result=classify0(dataTest,numpy.array(c),b,9)
+result=classify0(dataTest,numpy.array(c),b,10)
 print(result)
