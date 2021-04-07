@@ -34,7 +34,7 @@ def lwlr(testPoint,xArr,yArr,k=1.0):
     xMat=matrix(xArr);yMat=matrix(yArr).T
     m=shape(xMat)[0]
     #创建单元矩阵
-    weights=matrix(np.eye(m))
+    weights=matrix(eye(m))
     for j in range(m):
         #权重值大小以指数级衰减
         diffMat=testPoint-xMat[j,:]
