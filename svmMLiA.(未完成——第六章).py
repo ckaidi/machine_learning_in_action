@@ -148,3 +148,7 @@ def selectJ(i, oS, Ei):
 def updateEk(oS,k):
     Ek=calcEk(oS,k)
     oS.eCache[k]=[1,Ek]
+
+def innerL(i,oS):
+    Ei=calcEk(oS,i)
+    if((oS.labelMat[i]*Ei<-oS.tol) and (oS.alphas[i]<oS.C)) or ((oS.label[i]*Ei))
