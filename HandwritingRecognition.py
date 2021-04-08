@@ -1,11 +1,11 @@
-from numpy import *
+from numpy import zeros
 import operator
 import matplotlib
 import matplotlib.pyplot as plt
 from os import listdir
 from datingPersonClassify import classify0
 
-folderPath_traing=r'DATA/Ch02\handWriteRe/trainingDigits'
+folderPath_traing=r'DATA/Ch02、handWriteRe/trainingDigits'
 folderPath_test=r'DATA/Ch02/handWriteRe/testDigits'
 
 

@@ -4,6 +4,10 @@ from numpy.lib import eye
 from numpy.linalg.linalg import tensorsolve
 import numpy.linalg.linalg as linalg
 from numpy.matrixlib.defmatrix import matrix
+from time import sleep
+import json
+import random
+import urllib
 
 def loadDataSet(fileName):
     numFeat=len(open(fileName).readline().split('\t'))-1
@@ -70,6 +74,7 @@ def ridgeRegres(xMat,yMat,lam=0.2):
     ws=denom.I*(xMat.T*yMat)
     return ws
 
+
 #函数ridgeTest()用于在一组上测试结果
 def ridgeTest(xArr,yArr):
     xMat=matrix(xArr);yMat=matrix(yArr).T
@@ -99,7 +104,7 @@ def regularize(xMat):  #regularize by colums
     return inMat
 
 
-#前向逐步回归
+#前向逐步回归,属于一种贪心算法，每一步都尽可能减少误差
 #伪代码
 #数据标准化,使其分布满足0均值和单位方差
 #在每轮迭代过程中:
@@ -110,23 +115,61 @@ def regularize(xMat):  #regularize by colums
 #      计算新W下的误差
 #      如果误差Error小于当前最小误差lowestError:设置Wbest等于当前的W
 #    将W设置为新的Wbest
-def stageWise(xArr,yArr,eps=0.01,numIt=100):
+def stageWise(xArr,yArr,eps=0.01,numIt=100): #xArr为输入数据，yArr为预测数据，eps为每次迭代需要调整的步长
     xMat=matrix(xArr);yMat=matrix(yArr).T
     yMean=mean(yMat,0)
     yMat=yMat-yMean
     xMat=regularize(xMat)
-    m,n=shape(xMat)
+    m,n=shape(xMat) #mw为数据的数量，n为每个数据特征的数量
     returnMat=zeros((numIt,n))
     ws=zeros((n,1));wsTest=ws.copy();wsMax=ws.copy
     for i in range(numIt):
         print(ws.T)
         lowestError=Inf
         for j in range(n):
-            for sign in[-1,1]:
+            for sign in[-1,1]: #增大或减小
                 wsTest=ws.copy()
+                wsTest[j]+=eps*sign
+                yTest=xMat*wsTest
+                rssE=rssError(yMat.A,yTest.A)
+                if rssE<lowestError:
+                    lowestError=rssE
+                    wsMax=wsTest
+        ws=wsMax.copy()
+        returnMat[i,:]=ws.T
+    return returnMat
+
+
+#利用缩减法确定最佳回归系数
+#交叉验证测试岭回归
+def crossVaildation(xArr,yArr,numVal=10):
+    m=len(yArr)
+    indexList=range(m)
+    errorMat=zeros((numVal,30))
+    #创建训练集和测试集容器
+    for i in range(numVal):
+        trainX=[];trainY=[]
+        testX=[];testY=[]
+        random.shuffle(indexList) #shuffle()函数将序列的元素随机排序
+        for j in range(m):
+            if j <m*0.9:
+                trainX.append(xArr[indexList[j]])
+                trainY.append(yArr[indexList[j]])
+            else:
+                testX.append(xArr[indexList[j]])
+                testY.append(yArr[indexList[j]])
+        wMat=ridgeTest(trainX,trainY)
+        for k in range(30):
+            #用训练时的参数将测试数据标准化
+            matTestX=matrix(testX);matTrainX=matrix(trainX)
+            meanTrain=mean(matTrainX,0)
+            varTrain=var(matTrainX,0) #var按行或按列求平均，没有参数则是所有求平均
+            matTestX=(matTestX-meanTrain)/varTrain
+            
 
 
 #------------------------------------------------main----------------------------------------------------#
+'''
 dataMat,labelMat=loadDataSet('D:/毕业设计/DATA/43f/43features_18.txt')
 #dataMat,labelMat=loadDataSet('DATA/Ch08/abalone.txt')
 #yHat01=lwlrTest(dataMat[0:1999],dataMat[0:1999],labelMat[0:1999],0.1)
@@ -145,3 +188,6 @@ for i in ws:
 fr.close()
 print(s)
 print(ws)
+'''
+a=zeros((3,1))
+print(a)
